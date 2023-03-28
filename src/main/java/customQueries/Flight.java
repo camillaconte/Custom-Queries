@@ -14,6 +14,7 @@ public class Flight {
     private String fromAirport;
     private String toAirport;
 
+    @Column()
     private Status status;
 
     public Flight(){}

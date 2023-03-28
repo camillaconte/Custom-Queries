@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -21,11 +22,11 @@ public class FlightController {
     private int numberOfFlights;
 
     /**
-     * for the provisioning of 50 flights where:
+     * 1) for the provisioning of 50 flights where:
      * all the string values are randomly generated (using random.ints())
      * the default status is ON_TIME
      *
-     * for retrieving all the flights in the db
+     * 2) for retrieving all the flights in the db
      */
 
     public static String getRandomString() {
@@ -42,7 +43,7 @@ public class FlightController {
 
 
     @PostMapping
-    public void createRandomFlights() {
+    public void create50RandomFlights() {
         int i;
         for (i = 0; i < 50; i++) {
             Flight flight = new Flight(getRandomString(), getRandomString(), getRandomString());
@@ -99,6 +100,20 @@ public class FlightController {
         List<Flight> flights = flightRepository.findAll().stream().filter(f -> f.getStatus() == Status.ON_TIME)
                 .collect(Collectors.toList());;
         return flights;
+    }
+
+    @GetMapping("/get-by-status")
+    public List<Flight> givenStatusFlights(@RequestParam String status1, @RequestParam String status2){
+        int intStatus1 = Integer.parseInt(status1);
+        int intStatus2 = Integer.parseInt(status2);
+        Optional<List<Flight>> statusFlights = flightRepository.findFlightsByStatus(intStatus1, intStatus2);
+        if(statusFlights.isPresent()) {
+            List<Flight> foundFlights = statusFlights.get();
+            return foundFlights;
+        } else {
+            List<Flight> emptyFlightsList = new ArrayList<>();
+            return emptyFlightsList;
+        }
     }
 
 }
