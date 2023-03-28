@@ -12,6 +12,6 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     public List<Flight> getONTimeFlights();*/
 
     @Query(value = "SELECT * FROM spring.flights WHERE flights.status = ?1 OR flights.status = ?2;", nativeQuery = true)
-    Optional<List<Flight>> findFlightsByStatus(int p1, int p2);
+    Optional<List<Flight>> findFlightsByStatus(Status status1, Status status2);
 
 }

@@ -102,11 +102,10 @@ public class FlightController {
         return flights;
     }
 
-    @GetMapping("/get-by-status")
+    /*@GetMapping("/get-by-status")
     public List<Flight> givenStatusFlights(@RequestParam String status1, @RequestParam String status2){
-        int intStatus1 = Integer.parseInt(status1);
-        int intStatus2 = Integer.parseInt(status2);
-        Optional<List<Flight>> statusFlights = flightRepository.findFlightsByStatus(intStatus1, intStatus2);
+        //DEVO FARE UN "PARSE" da "String" a "Status" ???
+        Optional<List<Flight>> statusFlights = flightRepository.findFlightsByStatus(status1, status2);
         if(statusFlights.isPresent()) {
             List<Flight> foundFlights = statusFlights.get();
             return foundFlights;
@@ -114,6 +113,6 @@ public class FlightController {
             List<Flight> emptyFlightsList = new ArrayList<>();
             return emptyFlightsList;
         }
-    }
+    }*/
 
 }
